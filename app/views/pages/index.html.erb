@@ -1,0 +1,62 @@
+<header>
+    <nav>
+        <h1>Rastrei Aqui</h1>
+    </nav>
+</header>
+
+    <div class="conteiner">
+        
+        <div class="formRastreio">
+        <h2>RASTREI AQUI</h2>
+        <p>Rastreie seus Itens Aqui</p>
+        
+        <%= form_with url: tracking_url, method: :get  do |form| %>
+            <%= form.text_field :tracking_code ,placeholder:"Digite o Código de Rastreio", size:"23", maxlength:"13",minlength:"13" %>
+            <%= form.submit "Pesquisar"%>
+        <% end %>
+
+        </div>
+    </div>
+
+
+    <footer>
+            © 2022 Copyright:
+    </footer>
+
+    <style>
+
+        body
+        {
+            margin: 0px;
+        }
+
+        header
+        {
+            padding: 20px;
+            background-color: rgb(25, 0, 255);
+            text-align: center;
+            color: white;
+        }
+
+        .conteiner
+        {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding: 100px;
+            margin: 100px 500px;
+            background-color: rgb(152, 152, 152);
+        }
+
+        footer
+        {
+            background-color: #444444;
+            position:absolute;
+            bottom:0;
+            height: 100px;
+            width:100%;
+            text-align: center;
+            justify-content: center;
+        }
+        
+    </style>

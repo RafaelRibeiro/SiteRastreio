@@ -1,0 +1,70 @@
+<header>
+    <nav>
+        <h1>Rastreios.com</h1>
+    </nav>
+</header>
+
+<% @trackings.each do |tracking| %>
+    <div>
+        <table class="table table-dark">
+    
+            <h4><%= tracking.tracking_code%></h4>
+            <hr>
+            <tr>
+                <th>Situação</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+            <% tracking.histories.each do |history|%>
+                <tr>
+                    <th><%= image_tag "https://proxyapp.correios.com.br#{history.icon}" %></td>
+                    <th><%= history.description %></td>
+                    <th><%= history.data %></td>
+                </tr>
+
+            <% end %>
+        </table>
+    <div>    
+<%end%>
+
+
+
+<footer>
+    <p>@2022</p>
+</footer>
+
+<style>
+
+    body
+    {
+        margin: 0px;
+    }
+
+    header
+    {
+        padding: 20px;
+        background-color: rgb(25, 0, 255);
+        text-align: center;
+        color: white;
+    }
+
+    .conteiner
+    {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding: 100px;
+        margin: 50px 500px;
+        background-color: rgb(152, 152, 152);
+    }
+
+    footer
+    {
+        background-color: #444444;
+        position:absolute;
+	    bottom:0;
+        height: 100px;
+	    width:100%;
+        text-align: center;
+    }
+</style>
