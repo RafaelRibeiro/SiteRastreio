@@ -27,7 +27,7 @@ class PagesController < ApplicationController
     
     response = JSON.parse(page.body) #Analisar o JSON
     
-    if response["objetos"].first["eventos"]
+    if response["objetos"].present? && response["objetos"].first["eventos"].present?
       response["objetos"].first["eventos"].each do |evento|
         History.create(description: evento["descricao"], icon: evento["urlIcone"], tracking: tracking,data: evento["dtHrCriado"])
       end
