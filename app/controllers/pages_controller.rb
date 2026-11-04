@@ -23,7 +23,7 @@ class PagesController < ApplicationController
 
   def set_histories(tracking)
     agent = Mechanize.new
-    
+
     begin
       page = agent.get "https://proxyapp.correios.com.br/v1/sro-rastro/#{tracking.tracking_code}"
     rescue Mechanize::Error, Net::OpenTimeout, Net::ReadTimeout => e
@@ -34,8 +34,17 @@ class PagesController < ApplicationController
       return
     end
     
-    response = JSON.parse(page.body) #Analisar o JSON
+    # Analisar o JSON
+    begin
+      response = JSON.parse(page.body)
+    rescue JSON::ParserError => e
+      Rails.logger.error("Erro ao interpretar resposta dos Correios: #{e.message}")
     
+      flash[:alert] = "Não foi possível interpretar a resposta dos Correios."
+      render :index
+      return
+    end
+
     if response["objetos"].present? && response["objetos"].first["eventos"].present?
       response["objetos"].first["eventos"].each do |evento|
         History.create(description: evento["descricao"], icon: evento["urlIcone"], tracking: tracking,data: evento["dtHrCriado"])
