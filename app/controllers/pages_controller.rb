@@ -46,15 +46,17 @@ class PagesController < ApplicationController
     end
 
     if response["objetos"].present? && response["objetos"].first["eventos"].present?
-      tracking.histories.destroy_all # Exclusão só acontece depois que confirmamos que existem eventos na resposta
-      
-      response["objetos"].first["eventos"].each do |evento|
-        History.create!(
-          description: evento["descricao"], 
-          icon: evento["urlIcone"], 
-          tracking: tracking,
-          data: evento["dtHrCriado"]
-        )
+      tracking.histories.transaction do
+        tracking.histories.destroy_all # Exclusão só acontece depois que confirmamos que existem eventos na resposta
+        
+        response["objetos"].first["eventos"].each do |evento|
+          History.create!(
+            description: evento["descricao"], 
+            icon: evento["urlIcone"], 
+            tracking: tracking,
+            data: evento["dtHrCriado"]
+          )
+        end
       end
     
       flash[:alert] = "Rastreio já cadastrado no BD"
