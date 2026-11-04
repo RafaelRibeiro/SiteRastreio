@@ -23,7 +23,16 @@ class PagesController < ApplicationController
 
   def set_histories(tracking)
     agent = Mechanize.new
-    page = agent.get "https://proxyapp.correios.com.br/v1/sro-rastro/#{tracking.tracking_code}"
+    
+    begin
+      page = agent.get "https://proxyapp.correios.com.br/v1/sro-rastro/#{tracking.tracking_code}"
+    rescue Mechanize::Error, Net::OpenTimeout, Net::ReadTimeout => e
+      Rails.logger.error("Erro ao consultar Correios: #{e.message}")
+    
+      flash[:alert] = "Não foi possível consultar os Correios. Tente novamente."
+      render :index
+      return
+    end
     
     response = JSON.parse(page.body) #Analisar o JSON
     
