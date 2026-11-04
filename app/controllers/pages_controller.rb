@@ -49,7 +49,7 @@ class PagesController < ApplicationController
       tracking.histories.destroy_all # Exclusão só acontece depois que confirmamos que existem eventos na resposta
       
       response["objetos"].first["eventos"].each do |evento|
-        History.create(
+        History.create!(
           description: evento["descricao"], 
           icon: evento["urlIcone"], 
           tracking: tracking,
