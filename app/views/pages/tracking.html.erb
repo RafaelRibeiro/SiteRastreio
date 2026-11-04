@@ -17,9 +17,9 @@
             </tr>
             <% tracking.histories.each do |history|%>
                 <tr>
-                    <th><%= image_tag "https://proxyapp.correios.com.br#{history.icon}" %></td>
-                    <th><%= history.description %></td>
-                    <th><%= history.data %></td>
+                    <td><%= image_tag "https://proxyapp.correios.com.br#{history.icon}" %></td>
+                    <td><%= history.description %></td>
+                    <td><%= history.data %></td>
                 </tr>
 
             <% end %>
