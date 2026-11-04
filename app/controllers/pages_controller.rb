@@ -11,7 +11,7 @@ class PagesController < ApplicationController
       set_histories(@tracking)
       flash[:alert] = "Rastreio Salvo"
     else
-      @tracking = Tracking.find_by(tracking_code: params[:tracking_code])
+      @tracking = Tracking.find_by!(tracking_code: params[:tracking_code])
       @tracking.histories.destroy_all
       set_histories(@tracking)
     end
